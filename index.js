@@ -43,7 +43,7 @@ const longTimeRegistartionLimiter = rateLimit({
 
 const voteLimiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 1 minutes
-	max: 30, // Limit each IP to 100 requests per `window` (here, per 20 minutes)
+	max: 10, // Limit each IP to 100 requests per `window` (here, per 20 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -81,6 +81,7 @@ app.get("/register/:username/:email/:password", threeLimiter, longTimeRegistarti
 app.get("/check/:username", fiftyLimiter, require("./scripts/check.js")) // Username Availibility
 app.get("/login/:identification/:password", tenLimiter, require("./scripts/login.js")) // Login
 app.get("/feed/:type", fivehundredLimiter, require("./scripts/feed.js")) // Feed
+app.get("/hashtag/:type/:tag", fivehundredLimiter, require("./scripts/hashtag.js")) // Hashtag
 app.get("/posts/:user_id", hundredLimiter, require("./scripts/profile_posts.js")) // Profile Posts
 app.get("/profile/:user_id", fivehundredLimiter, require("./scripts/profile.js")) // Profile
 app.get("/image/:path", fivehundredLimiter, require("./scripts/image.js")) // Profile
@@ -104,6 +105,7 @@ app.get("/pushnotif/:user_id/:password", require("./scripts/push_notif.js")) // 
 app.get("/notifview/:user_id/:password/:notif_id", fivehundredLimiter, require("./scripts/view_notif.js")) // View Notifications
 app.get("/users-group/:type/:action_id", fivehundredLimiter, require("./scripts/user.js")) // Get Users - Example for stars etc
 app.get("/notif-amount/:user_id/:password", fivehundredLimiter, require("./scripts/notif_amount.js")) // Get count of Notifs
+app.get("/search/:type/:search", fivehundredLimiter, require("./scripts/search.js")) // Search Tags
 
 // POST REQUEST
 app.post("/upload-profile-picture", upload.array("file"), tenLimiter, require("./scripts/upload_profile_picture.js")); // Upload Profile Picture

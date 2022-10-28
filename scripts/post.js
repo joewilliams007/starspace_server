@@ -29,11 +29,39 @@ module.exports = (req, res) => {
                     `SELECT *
                     FROM Posts
                     WHERE post_id = ${post_id}`
+
                     , function (error, results, fields) {
                         if (error) console.log(error.message);
                     
                         var db_res = JSON.parse(JSON.stringify(results))
-                                          
+
+                        db.query(
+                            `SELECT *
+                            FROM Tags
+                            WHERE post_id = ${post_id}`
+        
+                            , function (error, results, fields) {
+                                if (error) console.log(error.message);
+                            
+                                var db_tags = JSON.parse(JSON.stringify(results))
+
+                                var tags = ""
+
+        
+                                try {
+                                    db_tags.forEach(element => {
+                                        tags += element.tag+", "
+                                        console.log(element.tag)
+                                    });
+                                } catch(err) {
+
+                                }
+
+                                if (tags.slice(-2) == ", ") {
+                                    tags = tags.slice(0, -2); 
+                                }
+                                
+                
                       
                             db.query(
                                 `SELECT *
@@ -73,7 +101,8 @@ module.exports = (req, res) => {
                                         item2_votes: db_res[0].item2_votes,
                                         total_votes: db_res[0].total_votes,
                                         type: db_res[0].type,
-                                        
+                                        tags: tags,
+                                    })
                                 })
                     
                             })

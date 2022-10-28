@@ -75,9 +75,8 @@ module.exports = (req, res) => {
                                             })
 
                                             db.query(
-                                                `DELETE
-                                                FROM Tags
-                                                WHERE post_id="${post_id}"`
+                                                `DELETE FROM Tags
+                                                WHERE post_id=${post_id}`
                     
                                                 , function (error, results, fields) {
                                     

@@ -18,6 +18,9 @@ module.exports = {
 
         separated_tags.forEach(tag => {
 
+            if (tag.length<2) return;
+            if (tag.length>20) return;
+        
             if (tag.slice(-1) == " ") {
                 tag = tag.slice(0, -1); 
             }
@@ -38,9 +41,7 @@ module.exports = {
      
                     }
 
-                    if (tag.length>20) {
-                        return;
-                    }
+      
     
                     if (Number(results[0].RowCount) == 0) {
     

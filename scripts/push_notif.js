@@ -57,12 +57,12 @@ module.exports = (req, res) => {
                         } else if (dbRes[0].type == "comment") {
                             text = "Somebody commented on your post!"
                         } else {
-
+                       
                         }
 
                         if (Number(username_results[0].RowCount)>1) {
                             amount = " in total you got " + username_results[0].RowCount + " new notifs"
-                        }
+                        } 
 
                         res.status(200).json({
                             success: true,

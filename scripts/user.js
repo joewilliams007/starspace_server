@@ -62,5 +62,22 @@ module.exports = (req, res) => {
                     user: results
             })
         });
+    } else if (type == "search") {
+        db.query(
+            `SELECT *
+            FROM Users
+            WHERE LOWER(username) LIKE LOWER("%${action_id}%")
+            LIMIT 100`
+        
+            , function (error, results, fields) {
+                if (error) console.log(error.message);
+
+                res.status(200).json({
+                    success: true,
+                    error: false,
+                    message: "ok",
+                    user: results
+            })
+        });
     }
 }
