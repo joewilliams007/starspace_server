@@ -15,7 +15,6 @@ module.exports = (req, res) => {
     console.log(password)
    
  
-            
         db.query(
             `SELECT COUNT(*) AS RowCount FROM Users WHERE username="${identification}"`
             , function (error, username_results, fields) {
