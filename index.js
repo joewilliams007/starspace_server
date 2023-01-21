@@ -6,6 +6,9 @@ const port = 2000;
 var multer = require("multer");
 var upload = multer({ dest: "./uploads/" });
 const app = express();
+var cors = requiere("cors")
+
+app.use(cors())
 
 const limiter = rateLimit({
 	windowMs: 20 * 60 * 1000, // 20 minutes
