@@ -76,6 +76,8 @@ const fivehundredLimiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
+app.use(express.json())
+
 // GET REQUEST
 app.get("/register/:username/:email/:password", threeLimiter, longTimeRegistartionLimiter, require("./scripts/register.js")) // Registration
 app.get("/check/:username", fiftyLimiter, require("./scripts/check.js")) // Username Availibility
