@@ -87,8 +87,8 @@ module.exports = {
                                                 message: "ok" })
                         
                                         } else {
-                                            console.log(results[0].session_id)
-                                            //return callback();
+                                            console.log("session id created: "+results[0].session_id)
+                                            return callback(results[0].session_id);
                                         }
                         
                                 });
