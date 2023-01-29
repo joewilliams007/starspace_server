@@ -87,12 +87,12 @@ module.exports = {
                                                 message: "ok" })
                         
                                         } else {
-                                            console.log(results[0])
+                                            console.log(RowDataPacket.LAST_INSERT_ID())
                                             //return callback();
                                         }
                         
                                 });
-                                console.log(results[0])
+                              //  console.log(results[0])
                                 //return callback();
                             }
             
