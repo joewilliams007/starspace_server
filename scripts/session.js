@@ -8,7 +8,7 @@ module.exports = {
         console.log("verifying session: "+session+" with ip: "+ipAddress)
 
         db.query(
-            `SELECT COUNT(*) AS RowCount FROM Sessions WHERE ip="${ipAddress}" AND session="${session}"`
+            `SELECT COUNT(*) AS RowCount FROM Sessions WHERE ip="${ipAddress}" AND session_id="${session}"`
             , function (error, results, fields) {
 
                 if (error) {
@@ -34,7 +34,7 @@ module.exports = {
                 } else {
 
                     db.query(
-                        `SELECT user_id FROM Sessions WHERE ip="${ipAddress}" AND session="${session}"`
+                        `SELECT user_id FROM Sessions WHERE ip="${ipAddress}" AND session_id="${session}"`
                         , function (error, session_results, fields) {
                                     return callback(true, session_results[0].user_id);
                         });
@@ -77,7 +77,7 @@ module.exports = {
                 var db_res = JSON.parse(JSON.stringify(results))
                                     
                     db.query(
-                        `INSERT INTO Sessions (session, user_id, ip, timestamp) 
+                        `INSERT INTO Sessions (session_id, user_id, ip, timestamp) 
                         VALUES ("${uid}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
                         );`
                         , function (error, results, fields) {
