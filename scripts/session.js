@@ -87,7 +87,7 @@ module.exports = {
                                                 message: "ok" })
                         
                                         } else {
-                                            console.log(results[0].RowDataPacket[0])
+                                            console.log(results[0].RowDataPacket)
                                             //return callback();
                                         }
                         
