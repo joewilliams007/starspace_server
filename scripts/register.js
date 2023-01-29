@@ -76,7 +76,7 @@ module.exports = (req, res) => {
                                                 var session = require('./session.js');
 
                                                 // Authenticate session and ip
-                                                session.create(username, req, res, function (session_id) {
+                                                session.create(username, req, res, function (session) {
 
                                                     db.query(
 
@@ -90,7 +90,7 @@ module.exports = (req, res) => {
                                                             res.status(200).json({
                                                                 success: true,
                                                                 error: false,
-                                                                session_id: session_id,
+                                                                session: session,
                                                                 user_id: dbRes[0].user_id,
                                                                 message: "ok"
                                                             })         

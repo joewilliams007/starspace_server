@@ -7,12 +7,12 @@ module.exports = (req, res) => {
     var date = moment().format('YYYY-MM-DD');
     var authenticate = require('./authenticate');
 
-    session_id = req.params;
+    session = req.params;
 
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function (user_id) {
+    session.verify(session, req, res, function (user_id) {
         db.query(
             `SELECT COUNT(*) AS RowCount FROM Notif WHERE user_id = ${user_id} AND seen = false AND source_user_id != ${user_id}`
             , function (error, results, fields) {

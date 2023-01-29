@@ -8,12 +8,12 @@ module.exports = (req, res) => {
 
     user_id = req.body.user_id
     password = req.body.password
-    session_id = req.body.session_id
+    session = req.body.session
 
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function(user_id){
+    session.verify(session, req, res, function(user_id){
         saveProfilePicture(user_id);
     })
 

@@ -7,12 +7,12 @@ module.exports = (req, res) => {
   
     replacement = req.body.replacement
     edit_type = req.body.edit_type
-    session_id = req.body.session_id
+    session = req.body.session
     
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function(user_id){
+    session.verify(session, req, res, function(user_id){
         saveEditAcount(user_id);
     })
 

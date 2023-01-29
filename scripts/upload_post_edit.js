@@ -5,14 +5,14 @@ module.exports = (req, res) => {
     var timestamp = Math.floor(new Date().getTime() / 1000) // in seconds
     content = req.body.content
     post_id = req.body.post_id
-    session_id = req.body.session_id
+    session = req.body.session
 
 
    
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function(user_id){
+    session.verify(session, req, res, function(user_id){
         saveEditPost(user_id);
     })
 

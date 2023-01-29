@@ -94,22 +94,22 @@ app.get("/post/:post_id", fivehundredLimiter, require("./scripts/post.js")) // P
 app.get("/username-to-userid/:username", fivehundredLimiter, require("./scripts/username_to_userid.js")) // username to user id
 app.get("/comments/:post_id", fivehundredLimiter, require("./scripts/get_comments.js")) // Get Comments of Post
 app.get("/vote-status/:user_id/:post_id", fivehundredLimiter, require("./scripts/get_vote_status.js")) // Get Vote Status
-app.get("/vote/:session_id/:post_id/:direction", voteLimiter, require("./scripts/vote.js")) // Vote a post
-app.get("/vote-comment/:session_id/:comment_id/:direction", voteLimiter, require("./scripts/vote-comment.js")) // Vote a comment
-app.get("/vote-poll/:session_id/:post_id/:item", voteLimiter, require("./scripts/vote-poll.js")) // Vote a poll
-app.get("/delete/:session_id/:post_id", twentyLimiter, require("./scripts/delete_post.js")) // Delete post
-app.get("/report/:session_id/:type/:post_id/:comment_id", twentyLimiter, require("./scripts/report.js")) // Report
-app.get("/delete-comment/:session_id/:post_id/:comment_id", twentyLimiter, require("./scripts/delete_comment.js")) // Delete comment
+app.get("/vote/:session/:post_id/:direction", voteLimiter, require("./scripts/vote.js")) // Vote a post
+app.get("/vote-comment/:session/:comment_id/:direction", voteLimiter, require("./scripts/vote-comment.js")) // Vote a comment
+app.get("/vote-poll/:session/:post_id/:item", voteLimiter, require("./scripts/vote-poll.js")) // Vote a poll
+app.get("/delete/:session/:post_id", twentyLimiter, require("./scripts/delete_post.js")) // Delete post
+app.get("/report/:session/:type/:post_id/:comment_id", twentyLimiter, require("./scripts/report.js")) // Report
+app.get("/delete-comment/:session/:post_id/:comment_id", twentyLimiter, require("./scripts/delete_comment.js")) // Delete comment
 app.get('/update', twentyLimiter, function (req, res) { 
 	res.download('/home/joe/AndroidStudioProjects/StarSpace/app/release/app-release.apk') 
 	console.log("somebody is uploading or updating the app ...")});
 
 app.get("/update-info", hundredLimiter, require("./scripts/update-info.js")) // Update Information
-app.get("/notif/:session_id/:type", fivehundredLimiter, require("./scripts/get_notif.js")) // Get Notifications
-app.get("/pushnotif/:session_id", require("./scripts/push_notif.js")) // Get Push Notifications
-app.get("/notifview/:session_id/:notif_id", fivehundredLimiter, require("./scripts/view_notif.js")) // View Notifications
+app.get("/notif/:session/:type", fivehundredLimiter, require("./scripts/get_notif.js")) // Get Notifications
+app.get("/pushnotif/:session", require("./scripts/push_notif.js")) // Get Push Notifications
+app.get("/notifview/:session/:notif_id", fivehundredLimiter, require("./scripts/view_notif.js")) // View Notifications
 app.get("/users-group/:type/:action_id", fivehundredLimiter, require("./scripts/user.js")) // Get Users - Example for stars etc
-app.get("/notif-amount/:session_id", fivehundredLimiter, require("./scripts/notif_amount.js")) // Get count of Notifs
+app.get("/notif-amount/:session", fivehundredLimiter, require("./scripts/notif_amount.js")) // Get count of Notifs
 app.get("/search/:type/:search", fivehundredLimiter, require("./scripts/search.js")) // Search Tags
 
 // POST REQUEST

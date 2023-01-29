@@ -1,7 +1,7 @@
 // Vote
 
 module.exports = (req, res) => {
-    var { session_id } = req.params;
+    var { session } = req.params;
     var { post_id } = req.params;
     var { direction } = req.params;
 
@@ -12,8 +12,8 @@ module.exports = (req, res) => {
         dir_int = -1
     }
 
-    if (session_id == null || session_id == undefined) {
-        console.log("session_id undefined")
+    if (session == null || session == undefined) {
+        console.log("session undefined")
         return;
     }
 
@@ -26,7 +26,7 @@ module.exports = (req, res) => {
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function (user_id) {
+    session.verify(session, req, res, function (user_id) {
         startVote(user_id);
     })
 
