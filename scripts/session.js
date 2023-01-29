@@ -92,27 +92,13 @@ module.exports = {
             
                             } else {
 
-                                db.query(
-                                    `SELECT LAST_INSERT_ID() AS session_id;`
-                                    , function (error, results, fields) {
-                                        if (error) {
-                        
-                                            console.log('creating session failed '+error.message);
-                                            res.status(200).json({ 
-                                                success: false,
-                                                error: true,
-                                                message: "ok" })
-                        
-                                        } else {
-                                            console.log("session id created: "+results[0].session_id)
-                                            return callback(results[0].session_id);
-                                        }
-                        
-                                });
+                             
+                                    return callback(uid);
+                             
+                            };
                               //  console.log()
                                 //return callback();
-                            }
-            
+                            
                     });
             })
     }
