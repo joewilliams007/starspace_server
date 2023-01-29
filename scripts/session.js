@@ -76,7 +76,7 @@ module.exports = {
                             } else {
 
                                 db.query(
-                                    `SELECT LAST_INSERT_ID();`
+                                    `SELECT LAST_INSERT_ID() AS session_id;`
                                     , function (error, results, fields) {
                                         if (error) {
                         
@@ -87,7 +87,7 @@ module.exports = {
                                                 message: "ok" })
                         
                                         } else {
-                                            console.log(results[0].RowDataPacket)
+                                            console.log(results[0])
                                             //return callback();
                                         }
                         
