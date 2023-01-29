@@ -63,8 +63,7 @@ module.exports = {
                     db.query(
                         `INSERT INTO Sessions (user_id, ip, timestamp) 
                         VALUES (${db_res[0].user_id},"${ipAddress}","${timestamp}"
-                        );
-                        SELECT LAST_INSERT_ID();`
+                        );`
                         , function (error, results, fields) {
                             if (error) {
             
@@ -75,6 +74,24 @@ module.exports = {
                                     message: "ok" })
             
                             } else {
+
+                                db.query(
+                                    `SELECT LAST_INSERT_ID();`
+                                    , function (error, results, fields) {
+                                        if (error) {
+                        
+                                            console.log('creating session failed '+error.message);
+                                            res.status(200).json({ 
+                                                success: false,
+                                                error: true,
+                                                message: "ok" })
+                        
+                                        } else {
+                                            console.log(results[0])
+                                            //return callback();
+                                        }
+                        
+                                });
                                 console.log(results[0])
                                 //return callback();
                             }
