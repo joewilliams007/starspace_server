@@ -6,7 +6,7 @@ const port = 2000;
 var multer = require("multer");
 var upload = multer({ dest: "./uploads/" });
 const app = express();
-var cors = requiere("cors")
+var cors = require("cors")
 
 app.use(cors())
 
