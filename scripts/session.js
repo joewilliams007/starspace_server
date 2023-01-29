@@ -2,11 +2,7 @@
 
 module.exports = {
     verify: function (session_id, res, callback) {
-
-        var moment = require('moment');
-        var date = moment().format('YYYY-MM-DD');
         var db = require('./db');
-        var timestamp = Math.floor(new Date().getTime() / 1000) // in seconds
         var ipAddress = req.socket.remoteAddress;
 
         console.log("verifying session: "+session_id+" with ip: "+ipAddress)
