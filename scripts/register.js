@@ -78,14 +78,24 @@ module.exports = (req, res) => {
                                                 // Authenticate session and ip
                                                 session.create(username, req, res, function (session_id) {
 
-                                                    res.status(200).json({
-                                                        success: true,
-                                                        error: false,
-                                                        session_id: session_id,
-                                                        message: "ok"
-                                                    })
+                                                    db.query(
 
-                                                    console.log('registration successfull');
+                                                        `SELECT user_id Users
+                                                WHERE username="${username}"`
+                                                        , function (error, results, fields) {
+                                                            if (error) console.log("error\n\n" + error.message);
+                    
+                                                            var dbRes = JSON.parse(JSON.stringify(results))
+                    
+                                                            res.status(200).json({
+                                                                success: true,
+                                                                error: false,
+                                                                session_id: session_id,
+                                                                user_id: dbRes[0].user_id,
+                                                                message: "ok"
+                                                            })         
+                                                            console.log('registration successfull');  
+                                                        });
                                                 })
 
                                             }
