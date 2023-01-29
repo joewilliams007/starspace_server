@@ -69,6 +69,7 @@ module.exports = (req, res) => {
                                             user_id: dbRes[0].user_id,
                                             password: password,
                                             email: dbRes[0].email,
+                                            session: "not yet available",
                                             message: "-" })
                                         
                               
