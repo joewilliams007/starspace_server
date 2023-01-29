@@ -116,7 +116,7 @@ app.get("/search/:type/:search", fivehundredLimiter, require("./scripts/search.j
 app.post("/upload-profile-picture", upload.array("file"), tenLimiter, require("./scripts/upload_profile_picture.js")); // Upload Profile Picture
 app.post("/upload-post-poll", upload.array("file"), tenLimiter, require("./scripts/upload_post_poll.js")); // Upload Post Poll
 app.post("/upload-post-image", upload.array("file"), tenLimiter, require("./scripts/upload_post_image.js")); // Upload Post Image
-app.post("/upload-post-text", upload.array("file"), tenLimiter, require("./scripts/upload_post_text.js")); // Upload Post Text
+app.post("/upload-post-text", upload.array("file"), fiftyLimiter, require("./scripts/upload_post_text.js")); // Upload Post Text
 app.post("/upload-comment-text", upload.array("file"), tenLimiter, require("./scripts/upload_comment_text.js")); // Upload Comment Text
 app.post("/upload-post-edit", upload.array("file"), tenLimiter, require("./scripts/upload_post_edit.js")); // Upload Edit Post Text
 app.post("/upload-account-edit", upload.array("file"), tenLimiter, require("./scripts/upload_account_edit.js")); // Upload Edit Account Text
