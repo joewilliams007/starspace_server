@@ -2,7 +2,8 @@
 
 module.exports = (req, res) => {
     var { type } = req.params;
-
+    var { rows } = req.params;
+    
     var db = require('./db');
     var {version_name, version_code} = require('./version');
 

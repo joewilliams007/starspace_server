@@ -85,7 +85,7 @@ app.use(express.json())
 app.get("/register/:username/:email/:password", threeLimiter, longTimeRegistartionLimiter, require("./scripts/register.js")) // Registration
 app.get("/check/:username", fiftyLimiter, require("./scripts/check.js")) // Username Availibility
 app.get("/login/:identification/:password", tenLimiter, require("./scripts/login.js")) // Login
-app.get("/feed/:type", fivehundredLimiter, require("./scripts/feed.js")) // Feed
+app.get("/feed/:type/:rows", fivehundredLimiter, require("./scripts/feed.js")) // Feed
 app.get("/hashtag/:type/:tag", fivehundredLimiter, require("./scripts/hashtag.js")) // Hashtag
 app.get("/posts/:user_id", hundredLimiter, require("./scripts/profile_posts.js")) // Profile Posts
 app.get("/profile/:user_id", fivehundredLimiter, require("./scripts/profile.js")) // Profile
