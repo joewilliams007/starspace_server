@@ -41,7 +41,7 @@ module.exports = {
 
                 }
         })
-    }, create: function (username, res, callback) {
+    }, create: function (username, req, res, callback) {
 
         var moment = require('moment');
         var date = moment().format('YYYY-MM-DD');

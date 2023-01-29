@@ -18,7 +18,7 @@ module.exports = (req, res) => {
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, res, function(user_id){
+    session.verify(session_id, req, res, function(user_id){
         savePostPoll(user_id);
     })
 
