@@ -87,7 +87,7 @@ module.exports = {
                                                 message: "ok" })
                         
                                         } else {
-                                            console.log(results[0].RowDataPacket.session_id)
+                                            console.log(results[0].session_id)
                                             //return callback();
                                         }
                         
