@@ -61,33 +61,13 @@ module.exports = {
         function uid(options = {}) {
            const now = String(Date.now());
             const middlePos = Math.ceil(now.length / 2);
-            let output = `${now.substr(0, middlePos)}-${randomStr(6)}-${now.substr(middlePos)}`;
+            let output = `${now}-${randomStr(6)}-${now.substr(middlePos)}`;
            // We add a 3 letter CODE in front of the id to make it more recognizable
             if (options.prefix) output = `${options.prefix}-${output}`;
            return output;
         }
 
-        function generateUUID() {
-            var id = uid();
-            if (check(id) == 0) {
-                var id = uid();
-                return id;
-            } else {
-                return id;
-            }
-        }
-        function check(id) {
-            db.query(
-                `SELECT COUNT(*) AS RowCount FROM Sessions WHERE session_id="${id}"`
-                , function (error, results, fields) {
-                    if (Number(results[0].RowCount) == 0) {
-                        return id;
-                    } else {
-                        return 0;
-                    }
-            })
-        }
-
+       
         db.query(
             `SELECT user_id
             FROM Users
@@ -99,7 +79,7 @@ module.exports = {
                                     
                     db.query(
                         `INSERT INTO Sessions (session_id, user_id, ip, timestamp) 
-                        VALUES ("${generateUUID()}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
+                        VALUES ("${uid()}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
                         );`
                         , function (error, results, fields) {
                             if (error) {
