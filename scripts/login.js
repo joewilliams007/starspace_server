@@ -71,6 +71,7 @@ module.exports = (req, res) => {
                                                 success: true,
                                                 error: false,
                                                 session_id: session_id,
+                                                user_id: dbRes[0].user_id,
                                                 email: dbRes[0].email,
                                                 message: "ok"
                                             })

@@ -119,7 +119,7 @@ PRIMARY KEY ( unique_tag_id )
 );
 
 CREATE TABLE Sessions (
-session_id INT NOT NULL AUTO_INCREMENT,
+session_id varchar(255),
 user_id int,
 ip varchar(255),
 timestamp int,

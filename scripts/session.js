@@ -8,7 +8,7 @@ module.exports = {
         console.log("verifying session: "+session_id+" with ip: "+ipAddress)
 
         db.query(
-            `SELECT COUNT(*) AS RowCount FROM Sessions WHERE ip="${ipAddress}" AND session_id=${session_id}`
+            `SELECT COUNT(*) AS RowCount FROM Sessions WHERE ip="${ipAddress}" AND session_id="${session_id}"`
             , function (error, results, fields) {
 
                 if (error) {
@@ -34,7 +34,7 @@ module.exports = {
                 } else {
 
                     db.query(
-                        `SELECT user_id FROM Sessions WHERE ip="${ipAddress}" AND session_id=${session_id}`
+                        `SELECT user_id FROM Sessions WHERE ip="${ipAddress}" AND session_id="${session_id}"`
                         , function (error, session_results, fields) {
                                     return callback(true, session_results[0].user_id);
                         });
@@ -50,6 +50,43 @@ module.exports = {
         var ipAddress = req.socket.remoteAddress;
 
         console.log("creating session with ip: "+ipAddress)
+
+        function randomStr(strLength) {
+            const chars = [ ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' ];
+            return [ ...Array(strLength) ]
+              .map(() => chars[Math.trunc(Math.random() * chars.length)])
+              .join('');
+          }
+
+        function uid(options = {}) {
+           const now = String(Date.now());
+            const middlePos = Math.ceil(now.length / 2);
+            let output = `${now.substr(0, middlePos)}-${randomStr(6)}-${now.substr(middlePos)}`;
+           // We add a 3 letter CODE in front of the id to make it more recognizable
+            if (options.prefix) output = `${options.prefix}-${output}`;
+           return output;
+        }
+
+        function generateUUID() {
+            var id = uid();
+            if (check(id) == 0) {
+                var id = uid();
+                return id;
+            } else {
+                return id;
+            }
+        }
+        function check(id) {
+            db.query(
+                `SELECT COUNT(*) AS RowCount FROM Sessions WHERE session_id="${id}"`
+                , function (error, results, fields) {
+                    if (Number(results[0].RowCount) == 0) {
+                        return id;
+                    } else {
+                        return "0";
+                    }
+            })
+        }
 
         db.query(
             `SELECT user_id
@@ -99,5 +136,6 @@ module.exports = {
                     });
             })
     }
+
 };
 
