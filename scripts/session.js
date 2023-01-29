@@ -1,7 +1,7 @@
 // Create / Verify sessions
 
 module.exports = {
-    verify: function (session_id, res, callback) {
+    verify: function (session_id, req, res, callback) {
         var db = require('./db');
         var ipAddress = req.socket.remoteAddress;
 
