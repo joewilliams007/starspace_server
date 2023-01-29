@@ -58,12 +58,10 @@ module.exports = {
               .join('');
           }
 
-        function uid(options = {}) {
+        function uids() {
            const now = String(Date.now());
             const middlePos = Math.ceil(now.length / 2);
             let output = `${now}-${randomStr(6)}-${now.substr(middlePos)}`;
-           // We add a 3 letter CODE in front of the id to make it more recognizable
-            if (options.prefix) output = `${options.prefix}-${output}`;
            return output;
         }
 
@@ -74,7 +72,7 @@ module.exports = {
             WHERE username = "${username}"`
             , function (error, results, fields) {
                 if (error) console.log(error.message);
-                var uid = uid()
+                var uid = uids()
             
                 var db_res = JSON.parse(JSON.stringify(results))
                                     
