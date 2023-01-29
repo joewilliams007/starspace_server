@@ -70,7 +70,7 @@ module.exports = (req, res) => {
                                             res.status(200).json({
                                                 success: true,
                                                 error: false,
-                                                session_id: session_id,
+                                                session: session_id,
                                                 user_id: dbRes[0].user_id,
                                                 email: dbRes[0].email,
                                                 message: "ok"
