@@ -15,11 +15,11 @@ module.exports = (req, res) => {
     var session = require('./session.js');
 
     // Authenticate session and ip
-    session.verify(session_id, req, res, function(user_id){
+    session.verify(session_id, req, res, function (user_id) {
         savePostText(user_id);
     })
 
-    function savePostText(user_id){
+    function savePostText(user_id) {
 
         db.query(
             `INSERT INTO Posts (user_id, content, link, timestamp, image, image_path, post_created) 
@@ -34,7 +34,7 @@ module.exports = (req, res) => {
                         error: true,
                         message: "error"
                     })
-        
+
                 } else {
                     res.status(200).json({
                         success: true,
@@ -53,11 +53,11 @@ module.exports = (req, res) => {
                             save_tags.save(tags, results[0].post_id) // Save tags
 
                         });
-                    
+
                 }
 
-        })
+            })
 
-    
+
     }
 }
