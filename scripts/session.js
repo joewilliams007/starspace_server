@@ -83,7 +83,7 @@ module.exports = {
                     if (Number(results[0].RowCount) == 0) {
                         return id;
                     } else {
-                        return "0";
+                        return 0;
                     }
             })
         }
