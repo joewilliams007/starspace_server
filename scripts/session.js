@@ -6,7 +6,7 @@ module.exports = {
         var ipAddress = req.socket.remoteAddress;
         
 
-        console.log("verifying session: "+JSON.stringify(session)+" with ip: "+ipAddress)
+        console.log("verifying session: "+session+" with ip: "+ipAddress)
 
         db.query(
             `SELECT COUNT(*) AS RowCount FROM Sessions WHERE ip="${ipAddress}" AND session_id="${session}"`
