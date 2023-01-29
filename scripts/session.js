@@ -74,12 +74,13 @@ module.exports = {
             WHERE username = "${username}"`
             , function (error, results, fields) {
                 if (error) console.log(error.message);
+                var uid = uid()
             
                 var db_res = JSON.parse(JSON.stringify(results))
                                     
                     db.query(
                         `INSERT INTO Sessions (session_id, user_id, ip, timestamp) 
-                        VALUES ("${uid()}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
+                        VALUES ("${uid}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
                         );`
                         , function (error, results, fields) {
                             if (error) {
