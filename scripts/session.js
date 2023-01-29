@@ -98,8 +98,8 @@ module.exports = {
                 var db_res = JSON.parse(JSON.stringify(results))
                                     
                     db.query(
-                        `INSERT INTO Sessions (user_id, ip, timestamp) 
-                        VALUES (${db_res[0].user_id},"${ipAddress}","${timestamp}"
+                        `INSERT INTO Sessions (session_id, user_id, ip, timestamp) 
+                        VALUES ("${generateUUID()}",${db_res[0].user_id},"${ipAddress}","${timestamp}"
                         );`
                         , function (error, results, fields) {
                             if (error) {
