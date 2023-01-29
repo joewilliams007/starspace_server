@@ -63,7 +63,8 @@ module.exports = {
                     db.query(
                         `INSERT INTO Sessions (user_id, ip, timestamp) 
                         VALUES (${db_res[0].user_id},"${ipAddress}","${timestamp}"
-                        SELECT LAST_INSERT_ID();)`
+                        )
+                        SELECT LAST_INSERT_ID();`
                         , function (error, results, fields) {
                             if (error) {
             
@@ -74,8 +75,8 @@ module.exports = {
                                     message: "ok" })
             
                             } else {
-
-                                return callback(session_id);
+                                console.log(results[0])
+                                //return callback();
                             }
             
                     });
