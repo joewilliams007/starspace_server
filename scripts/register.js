@@ -11,7 +11,7 @@ module.exports = (req, res) => {
     var { username } = req.params;
     var { email } = req.params;
     var { password } = req.params;
-   
+
     console.log(username)
     console.log(email)
     console.log(password)
@@ -23,11 +23,12 @@ module.exports = (req, res) => {
 
             if (error) {
 
-                console.log('registration error '+error.message);
-                res.status(200).json({ 
+                console.log('registration error ' + error.message);
+                res.status(200).json({
                     success: false,
                     error: true,
-                    message: "ok" })
+                    message: "ok"
+                })
 
             }
 
@@ -40,84 +41,82 @@ module.exports = (req, res) => {
 
                         if (error) {
 
-                            console.log('registration error '+error.message);
-                            res.status(200).json({ 
+                            console.log('registration error ' + error.message);
+                            res.status(200).json({
                                 success: false,
                                 error: true,
-                                message: "ok" })
+                                message: "ok"
+                            })
 
                         }
 
                         if (Number(email_results[0].RowCount) == 0) {
-                          
+
                             var timestamp = Math.floor(new Date().getTime() / 1000) // in seconds
 
-                            bcrypt.genSalt(saltRounds, function(err, salt) {
-                                bcrypt.hash(password, salt, function(err, hash) {
+                            bcrypt.genSalt(saltRounds, function (err, salt) {
+                                bcrypt.hash(password, salt, function (err, hash) {
                                     // Store hash in your password DB.
-                                    
+
                                     db.query(
                                         `INSERT INTO Users (username, email, password, timestamp, account_created) 
                                         VALUES ("${username}","${email}","${hash}","${timestamp}","${date}")`
                                         , function (error, results, fields) {
                                             if (error) {
-            
-                                                console.log('registration error '+error.message);
-                                                res.status(200).json({ 
+
+                                                console.log('registration error ' + error.message);
+                                                res.status(200).json({
                                                     success: false,
                                                     error: true,
-                                                    message: "ok" })
-            
+                                                    message: "ok"
+                                                })
+
                                             } else {
-            
-                                                db.query(
-                                                    `SELECT user_id
-                                                    FROM Users
-                                                    WHERE username = "${username}"`
-                                                    , function (error, results, fields) {
-                                                        if (error) console.log(error.message);
-                                                    
-                                                        var db_res = JSON.parse(JSON.stringify(results))
-                                                                            
-                                                        res.status(200).json({ 
-                                                            success: true,
-                                                            user_id: db_res[0].user_id,
-                                                            error: false,
-                                                            password: password,
-                                                            message: "ok" })
-                                            
+
+                                                var session = require('./session.js');
+
+                                                // Authenticate session and ip
+                                                session.create(username, res, function (session_id) {
+
+                                                    res.status(200).json({
+                                                        success: true,
+                                                        error: false,
+                                                        session_id,
+                                                        message: "ok"
                                                     })
-            
-                                                console.log('registration successfull');
-                                                
+
+                                                    console.log('registration successfull');
+                                                })
+
                                             }
-            
+
                                         });
                                 });
                             });
-                            
+
 
 
                         } else {
 
                             console.log('email taken');
-                            res.status(200).json({ 
+                            res.status(200).json({
                                 success: false,
                                 error: false,
-                                message: "email already taken" }) // Email not accepted, Internal Conflict
+                                message: "email already taken"
+                            }) // Email not accepted, Internal Conflict
 
                         }
-                });
+                    });
 
             } else {
                 console.log('username taken');
 
-                res.status(200).json({ 
+                res.status(200).json({
                     success: false,
                     error: false,
-                    message: "username already taken" }) // Username not accepted, Internal Conflict
+                    message: "username already taken"
+                }) // Username not accepted, Internal Conflict
 
             }
-    });
- 
+        });
 }

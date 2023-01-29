@@ -5,32 +5,21 @@ module.exports = (req, res) => {
     var moment = require('moment');
     var date = moment().format('YYYY-MM-DD');
     var db = require('./db');
-    var notif = require('./notif');
-    var authenticate = require('./authenticate');
-    var update_db = require('./update_db');
     var timestamp = Math.floor(new Date().getTime() / 1000) // in seconds
     var save_tags = require('./save_tags');
-    
-    const sharp = require('sharp');
-    var fs = require('fs');
-    const bcrypt = require('bcrypt');
 
-    user_id = req.body.user_id
-    password = req.body.password
     content = req.body.content
     tags = req.body.tags
-    
-    console.log("tags: "+tags)
+    session_id = req.body.session_id
 
-    // Authenticate user id and password
-    authenticate.identify(user_id, password, res, function(isAuthenticate){
-        // returns true or false
-        if(isAuthenticate) {
-            savePostText();
-        }
+    var session = require('./session.js');
+
+    // Authenticate session and ip
+    session.verify(session_id, res, function(user_id){
+        savePostText(user_id);
     })
 
-    function savePostText(){
+    function savePostText(user_id){
 
         db.query(
             `INSERT INTO Posts (user_id, content, link, timestamp, image, image_path, post_created) 

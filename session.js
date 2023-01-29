@@ -1,7 +1,7 @@
 // Create / Verify sessions
 
 module.exports = {
-    verify: function (user_id, session_id, res, callback) {
+    verify: function (session_id, res, callback) {
 
         var moment = require('moment');
         var date = moment().format('YYYY-MM-DD');
@@ -23,7 +23,7 @@ module.exports = {
                         error: true,
                         message: "ok"
                     })
-                    return callback(false);
+           
                 }
 
                 if (Number(results[0].RowCount) == 0) {
@@ -34,7 +34,7 @@ module.exports = {
                         error: false,
                         message: "authentication invalid. session does not exist"
                     })
-                    return callback(false);
+                   
                 } else {
 
                     db.query(
@@ -45,6 +45,45 @@ module.exports = {
 
                 }
         })
+    }, create: function (username, res, callback) {
+
+        var moment = require('moment');
+        var date = moment().format('YYYY-MM-DD');
+        var db = require('./db');
+        var timestamp = Math.floor(new Date().getTime() / 1000) // in seconds
+        var ipAddress = req.socket.remoteAddress;
+
+        console.log("creating session with ip: "+ipAddress)
+
+        db.query(
+            `SELECT user_id
+            FROM Users
+            WHERE username = "${username}"`
+            , function (error, results, fields) {
+                if (error) console.log(error.message);
+            
+                var db_res = JSON.parse(JSON.stringify(results))
+                                    
+                    db.query(
+                        `INSERT INTO Sessions (user_id, ip, timestamp) 
+                        VALUES (${db_res[0].user_id},"${ip}","${timestamp}"
+                        SELECT LAST_INSERT_ID();)`
+                        , function (error, results, fields) {
+                            if (error) {
+            
+                                console.log('creating session failed '+error.message);
+                                res.status(200).json({ 
+                                    success: false,
+                                    error: true,
+                                    message: "ok" })
+            
+                            } else {
+
+                                return callback(session_id);
+                            }
+            
+                    });
+            })
     }
 };
 

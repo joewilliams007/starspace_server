@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     var date = moment().format('YYYY-MM-DD');
     const bcrypt = require('bcrypt');
     const saltRounds = 10;
-    const ipAddress = req.socket.remoteAddress;
+ 
 
     var { identification } = req.params;
     var { password } = req.params;

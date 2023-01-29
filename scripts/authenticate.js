@@ -10,6 +10,9 @@ module.exports = {
         const bcrypt = require('bcrypt');
         const saltRounds = 10;
 
+
+
+
         console.log("proccess identify of user id #"+user_id)
 
         db.query(
