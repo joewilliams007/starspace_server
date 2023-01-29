@@ -81,7 +81,7 @@ module.exports = (req, res) => {
                                                     res.status(200).json({
                                                         success: true,
                                                         error: false,
-                                                        session_id,
+                                                        session_id: session_id,
                                                         message: "ok"
                                                     })
 
