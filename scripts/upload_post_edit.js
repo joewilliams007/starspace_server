@@ -7,8 +7,6 @@ module.exports = (req, res) => {
     post_id = req.body.post_id
     session = req.body.session
 
-
-   
     var session = require('./session.js');
 
     // Authenticate session and ip
